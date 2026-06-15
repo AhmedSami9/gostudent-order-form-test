@@ -18,12 +18,13 @@ export interface OrderFormData {
   paymentMethod: PaymentMethod;
   acceptTerms: boolean;
   countryCode: CountryCode;
+  cardHolder: string;
+  cardNumber: string;
+  cardExpiry: string;
+  cardCvc: string;
 }
 
-export type PaymentMethod =
-  | "credit-card"
-  | "paypal"
-  | "bank-transfer";
+export type PaymentMethod = "credit-card" | "paypal" | "bank-transfer";
 
 export type CountryCode = "AE" | "DE" | "AT" | "CH" | "EG";
 export type LocaleCode = "ar" | "en";

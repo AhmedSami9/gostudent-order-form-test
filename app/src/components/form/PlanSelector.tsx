@@ -16,9 +16,7 @@ export default function PlanSelector({
 }: PlanSelectorProps) {
   return (
     <div className="plan-selector">
-      <label className="field-label">
-        {t("selectPackage")}
-      </label>
+      <label className="field-label">{t("selectPackage")}</label>
 
       <div className="plan-grid">
         {plans.map((plan) => {
@@ -31,17 +29,11 @@ export default function PlanSelector({
               onClick={() => onChange(plan.id)}
               className={`plan-card ${isActive ? "plan-card-active" : ""}`}
             >
-              <h3>
-                {plan.sessions}
-              </h3>
+              <h3>{plan.sessions}</h3>
 
-              <span className="plan-label">
-                {t("sessions")}
-              </span>
+              <span className="plan-label">{t("sessions")}</span>
 
-              <strong className="plan-price">
-                €{plan.finalPrice}
-              </strong>
+              <strong className="plan-price">€{plan.finalPrice}</strong>
 
               {plan.discountPercentage > 0 && (
                 <span className="plan-discount">

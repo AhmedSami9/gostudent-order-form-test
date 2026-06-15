@@ -1294,3 +1294,62 @@ body.page .wp-block-post-title:has(+ .wp-block-post-content #gostudent-order-roo
 #gostudent-order-root .language-toolbar {
   margin-top: 0 !important;
 }
+
+#gostudent-order-root .payment-details {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+
+#gostudent-order-root .section-title {
+  margin: 0;
+  color: var(--brand-dark);
+  font-size: 18px;
+  font-weight: 900;
+}
+
+#gostudent-order-root .payment-secure-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+#gostudent-order-root .PhoneInput {
+  width: 100%;
+  min-height: 50px;
+  padding: 0 14px;
+  background: #fbfdf9;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+#gostudent-order-root .PhoneInputInput {
+  min-height: 48px;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  outline: none;
+}
+
+#gostudent-order-root .PhoneInputCountry {
+  margin-inline-end: 10px;
+}
+
+#gostudent-order-root .PhoneInputCountrySelect {
+  cursor: pointer;
+}
+
+#gostudent-order-root .PhoneInput.field-input-error {
+  border-color: var(--danger);
+}
+.PhoneInput {
+  direction: ltr;
+}
+
+.PhoneInputCountry {
+  direction: ltr;
+}

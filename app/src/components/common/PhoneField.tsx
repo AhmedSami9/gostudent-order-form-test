@@ -1,20 +1,20 @@
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import type { CountryCode } from "../../types/order";
-import { countries } from "../../data/countries";
 
 type PhoneFieldProps = {
   label: string;
   name: string;
   value: string;
   countryCode: CountryCode;
-  placeholder?: string;
+  placeholder: string;
   error?: string;
   onChange: (value: string) => void;
-  onBlur?: () => void;
+  onBlur: () => void;
 };
 
 export default function PhoneField({
   label,
-  name,
   value,
   countryCode,
   placeholder,
@@ -22,34 +22,22 @@ export default function PhoneField({
   onChange,
   onBlur,
 }: PhoneFieldProps) {
-  const selectedCountry =
-    countries.find((country) => country.code === countryCode) || countries[0];
-
   return (
-    <div className="field">
-      <label htmlFor={name} className="field-label">
-        {label}
-      </label>
+    <label>
+      <span className="field-label">{label}</span>
 
-      <div className={`phone-control ${error ? "field-input-error" : ""}`}>
-        <div className="phone-prefix">
-          <span className={`country-flag ${selectedCountry.flagClass}`} aria-hidden="true" />
-          <span>{selectedCountry.dialCode}</span>
-        </div>
-
-        <input
-          id={name}
-          name={name}
-          type="tel"
-          placeholder={placeholder}
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
-          onBlur={onBlur}
-          className="phone-input"
-        />
-      </div>
+      <PhoneInput
+        className={`phone-control ${error ? "field-input-error" : ""}`}
+        international
+        defaultCountry={countryCode}
+        countryCallingCodeEditable={false}
+        value={value}
+        placeholder={placeholder}
+        onChange={(phoneValue) => onChange(phoneValue || "")}
+        onBlur={onBlur}
+      />
 
       {error && <p className="field-error">{error}</p>}
-    </div>
+    </label>
   );
 }

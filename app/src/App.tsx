@@ -12,7 +12,7 @@ import {
 import CountrySwitcher from "./components/common/CountrySwitcher";
 import LanguageSwitcher from "./components/common/LanguageSwitcher";
 import { useTranslation } from "./hooks/useTranslation";
-import { PhoneIcon, WhatsAppIcon } from "./components/common/icons";
+import { WhatsAppIcon } from "./components/common/icons";
 import { contact, contactLinks } from "./config/contact";
 const initialFormData: OrderFormData = {
   firstName: "",
@@ -26,7 +26,34 @@ const initialFormData: OrderFormData = {
   paymentMethod: "credit-card",
   acceptTerms: false,
   countryCode: "AE",
+  cardHolder: "",
+  cardNumber: "",
+  cardExpiry: "",
+  cardCvc: "",
 };
+
+function scrollToFirstError(errors: OrderFormErrors) {
+  const firstErrorField = Object.keys(errors)[0] as
+    | keyof OrderFormData
+    | undefined;
+
+  if (!firstErrorField) return;
+
+  const element = document.querySelector(
+    `[name="${firstErrorField}"]`,
+  ) as HTMLElement | null;
+
+  if (!element) return;
+
+  element.scrollIntoView({
+    behavior: "smooth",
+    block: "center",
+  });
+
+  setTimeout(() => {
+    element.focus();
+  }, 300);
+}
 
 export default function App() {
   const [formData, setFormData] = useState<OrderFormData>(initialFormData);
@@ -64,12 +91,18 @@ export default function App() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
     setIsSubmitted(true);
     setIsSuccess(false);
+
     const validationErrors = validateOrderForm(formData, t);
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length > 0) {
+      setTimeout(() => {
+        scrollToFirstError(validationErrors);
+      }, 0);
+
       return;
     }
 
@@ -131,10 +164,6 @@ export default function App() {
                 })
               }
             />
-            <a className="form-help-link" href={contactLinks.phone}>
-              <PhoneIcon />
-              <span>{contact.displayPhone}</span>
-            </a>
           </div>
 
           <div className="page-header">

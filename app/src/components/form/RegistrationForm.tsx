@@ -7,6 +7,7 @@ import PaymentMethod from "./PaymentMethod";
 import type { TranslationKey } from "../../data/translations";
 import PhoneField from "../common/PhoneField";
 import { countries } from "../../data/countries";
+import PaymentDetails from "./PaymentDetails";
 
 type RegistrationFormProps = {
   formData: OrderFormData;
@@ -138,6 +139,16 @@ export default function RegistrationForm({
         t={t}
       />
 
+      <PaymentDetails
+        formData={formData}
+        errors={errors}
+        touched={touched}
+        isSubmitted={isSubmitted}
+        t={t}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+
       <label className="terms-box">
         {getError("acceptTerms") && (
           <p className="field-error">{getError("acceptTerms")}</p>
@@ -164,9 +175,7 @@ export default function RegistrationForm({
       </Button>
 
       {isSuccess && (
-        <div className="success-message">
-          {t("orderSubmittedSuccessfully")}
-        </div>
+        <div className="success-message">{t("orderSubmittedSuccessfully")}</div>
       )}
     </form>
   );

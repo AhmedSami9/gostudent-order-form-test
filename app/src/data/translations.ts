@@ -63,7 +63,23 @@ export type TranslationKey =
   | "total"
   | "monthlySessions"
   | "selectedPayment"
-  | "satisfaction";
+  | "satisfaction"
+  | "paymentDetails"
+  | "cardHolder"
+  | "cardHolderPlaceholder"
+  | "cardNumber"
+  | "cardExpiry"
+  | "cardCvc"
+  | "cardHolderRequired"
+  | "invalidCardHolder"
+  | "cardNumberRequired"
+  | "cardExpiryRequired"
+  | "cardExpired"
+  | "cardCvcRequired"
+  | "invalidCardNumber"
+  | "invalidExpiry"
+  | "invalidPhone"
+  | "invalidCvc";
 
 type Dictionary = Record<TranslationKey, string>;
 
@@ -133,6 +149,22 @@ const english: Dictionary = {
   monthlySessions: "Monthly sessions",
   selectedPayment: "Payment method",
   satisfaction: "95% satisfaction rate from our students.",
+  paymentDetails: "Payment details",
+  cardHolder: "Card holder",
+  cardHolderPlaceholder: "Name on card",
+  cardNumber: "Card number",
+  cardExpiry: "Expiry date",
+  cardCvc: "CVC",
+  cardHolderRequired: "Card holder name is required",
+  invalidCardHolder: "Please enter a valid card holder name",
+  cardNumberRequired: "Card number is required",
+  cardExpiryRequired: "Expiry date is required",
+  cardCvcRequired: "CVC is required",
+  invalidCardNumber: "Please enter a valid card number",
+  invalidExpiry: "Please enter a valid expiry date",
+  invalidCvc: "Please enter a valid CVC",
+  invalidPhone: "Please enter a valid phone number",
+  cardExpired: "Card has expired",
 };
 
 const arabic: Dictionary = {
@@ -201,6 +233,22 @@ const arabic: Dictionary = {
   monthlySessions: "عدد الحصص",
   selectedPayment: "طريقة الدفع",
   satisfaction: "نسبة رضا 95% من طلابنا.",
+  paymentDetails: "بيانات الدفع",
+  cardHolder: "اسم صاحب البطاقة",
+  cardHolderPlaceholder: "الاسم الموجود على البطاقة",
+  cardNumber: "رقم البطاقة",
+  cardExpiry: "تاريخ الانتهاء",
+  cardCvc: "رمز الأمان CVC",
+  cardHolderRequired: "اسم صاحب البطاقة مطلوب",
+  invalidCardHolder: "من فضلك أدخل اسما صحيحا لصاحب البطاقة",
+  cardNumberRequired: "رقم البطاقة مطلوب",
+  invalidCardNumber: "من فضلك أدخل رقم بطاقة صحيح",
+  cardExpiryRequired: "تاريخ الانتهاء مطلوب",
+  invalidExpiry: "من فضلك أدخل تاريخ انتهاء صحيح",
+  cardCvcRequired: "رمز الأمان CVC مطلوب",
+  invalidCvc: "من فضلك أدخل رمز أمان صحيح",
+  invalidPhone: "من فضلك أدخل رقم هاتف صحيح",
+  cardExpired: "البطاقة منتهية الصلاحية",
 };
 
 export const translations: Record<LocaleCode, Dictionary> = {

@@ -36,9 +36,7 @@ export default function PaymentMethod({
 }: PaymentMethodProps) {
   return (
     <div className="payment-selector">
-      <label className="field-label">
-        {t("paymentMethod")}
-      </label>
+      <label className="field-label">{t("paymentMethod")}</label>
 
       <div className="payment-list">
         {paymentMethods.map((method) => {
