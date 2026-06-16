@@ -74,7 +74,7 @@ function scrollToFirstError(errors: OrderFormErrors) {
 
 export default function App() {
   const [formData, setFormData] = useState<OrderFormData>(initialFormData);
-  const [localeCode, setLocaleCode] = useState<LocaleCode>("ar");
+  const [localeCode, setLocaleCode] = useState<LocaleCode>("en");
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState<OrderFormErrors>({});
