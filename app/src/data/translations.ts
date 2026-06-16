@@ -72,6 +72,11 @@ export type TranslationKey =
   | "cardCvc"
   | "cardHolderRequired"
   | "invalidCardHolder"
+  | "invalidFirstName"
+  | "invalidLastName"
+  | "invalidAddress"
+  | "invalidCity"
+  | "invalidPostalCode"
   | "cardNumberRequired"
   | "cardExpiryRequired"
   | "cardExpired"
@@ -156,6 +161,11 @@ const english: Dictionary = {
   cardExpiry: "Expiry date",
   cardCvc: "CVC",
   cardHolderRequired: "Card holder name is required",
+  invalidFirstName: "Please enter a valid first name",
+  invalidLastName: "Please enter a valid last name",
+  invalidAddress: "Please enter a valid address",
+  invalidCity: "Please enter a valid city",
+  invalidPostalCode: "Please enter a valid postal code",
   invalidCardHolder: "Please enter a valid card holder name",
   cardNumberRequired: "Card number is required",
   cardExpiryRequired: "Expiry date is required",
@@ -241,6 +251,11 @@ const arabic: Dictionary = {
   cardCvc: "رمز الأمان CVC",
   cardHolderRequired: "اسم صاحب البطاقة مطلوب",
   invalidCardHolder: "من فضلك أدخل اسما صحيحا لصاحب البطاقة",
+  invalidFirstName: "Please enter a valid first name",
+  invalidLastName: "Please enter a valid last name",
+  invalidAddress: "Please enter a valid address",
+  invalidCity: "Please enter a valid city",
+  invalidPostalCode: "Please enter a valid postal code",
   cardNumberRequired: "رقم البطاقة مطلوب",
   invalidCardNumber: "من فضلك أدخل رقم بطاقة صحيح",
   cardExpiryRequired: "تاريخ الانتهاء مطلوب",

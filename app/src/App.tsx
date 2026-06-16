@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { pricingService } from "./services/pricing.service";
 import type { LocaleCode, OrderFormData } from "./types/order";
 import OrderSummary from "./components/order/OrderSummary";
@@ -14,6 +14,7 @@ import LanguageSwitcher from "./components/common/LanguageSwitcher";
 import { useTranslation } from "./hooks/useTranslation";
 import { WhatsAppIcon } from "./components/common/icons";
 import { contact, contactLinks } from "./config/contact";
+
 const initialFormData: OrderFormData = {
   firstName: "",
   lastName: "",
@@ -32,10 +33,26 @@ const initialFormData: OrderFormData = {
   cardCvc: "",
 };
 
+const fieldOrder: (keyof OrderFormData)[] = [
+  "firstName",
+  "lastName",
+  "email",
+  "phone",
+  "address",
+  "city",
+  "postalCode",
+  "selectedPlanId",
+  "paymentMethod",
+  "acceptTerms",
+  "countryCode",
+  "cardHolder",
+  "cardNumber",
+  "cardExpiry",
+  "cardCvc",
+];
+
 function scrollToFirstError(errors: OrderFormErrors) {
-  const firstErrorField = Object.keys(errors)[0] as
-    | keyof OrderFormData
-    | undefined;
+  const firstErrorField = fieldOrder.find((field) => errors[field]);
 
   if (!firstErrorField) return;
 
@@ -58,26 +75,36 @@ function scrollToFirstError(errors: OrderFormErrors) {
 export default function App() {
   const [formData, setFormData] = useState<OrderFormData>(initialFormData);
   const [localeCode, setLocaleCode] = useState<LocaleCode>("ar");
-  const plans = pricingService.getPlans();
-
-  const selectedPlan =
-    pricingService.getPlanById(formData.selectedPlanId) || plans[0];
 
   const [isSuccess, setIsSuccess] = useState(false);
-  const { t } = useTranslation(localeCode);
-
   const [errors, setErrors] = useState<OrderFormErrors>({});
   const [touched, setTouched] = useState<OrderFormTouched>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  function handleBlur(field: keyof OrderFormData) {
-    const updatedTouched = {
-      ...touched,
-      [field]: true,
-    };
+  const { t } = useTranslation(localeCode);
 
-    setTouched(updatedTouched);
+  const plans = useMemo(() => pricingService.getPlans(), []);
+
+  const selectedPlan = useMemo(
+    () => pricingService.getPlanById(formData.selectedPlanId) || plans[0],
+    [formData.selectedPlanId, plans],
+  );
+
+ function handleLanguageChange(nextLocaleCode: LocaleCode) {
+  setLocaleCode(nextLocaleCode);
+  setErrors({});
+  setTouched({});
+  setIsSubmitted(false);
+  setIsSuccess(false);
+}
+
+  function handleBlur(field: keyof OrderFormData) {
+    setTouched((prevTouched) => ({
+      ...prevTouched,
+      [field]: true,
+    }));
+
     setErrors(validateOrderForm(formData, t));
   }
 
@@ -122,8 +149,16 @@ export default function App() {
     }
   }
 
+  function handleCountryChange(countryCode: OrderFormData["countryCode"]) {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      countryCode,
+    }));
+  }
+
   function handleScrollToForm(event: React.MouseEvent<HTMLAnchorElement>) {
     event.preventDefault();
+
     document.getElementById("consultation-form")?.scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -142,7 +177,7 @@ export default function App() {
         <WhatsAppIcon />
       </a>
 
-      <LanguageSwitcher value={localeCode} onChange={setLocaleCode} />
+      <LanguageSwitcher value={localeCode} onChange={handleLanguageChange} />
 
       <BrandHero
         displayPhone={contact.displayPhone}
@@ -157,12 +192,7 @@ export default function App() {
           <div className="form-panel-top">
             <CountrySwitcher
               value={formData.countryCode}
-              onChange={(countryCode) =>
-                setFormData({
-                  ...formData,
-                  countryCode,
-                })
-              }
+              onChange={handleCountryChange}
             />
           </div>
 
@@ -171,6 +201,7 @@ export default function App() {
             <h1>{t("title")}</h1>
             <p>{t("subtitle")}</p>
           </div>
+
           <RegistrationForm
             formData={formData}
             plans={plans}
